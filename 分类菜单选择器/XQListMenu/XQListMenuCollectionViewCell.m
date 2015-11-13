@@ -25,15 +25,14 @@
     cellBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [cellBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     cellBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-//    cellBtn.userInteractionEnabled = NO;
     cellBtn.enabled = NO;
     [cellBtn setBackgroundColor:[UIColor clearColor]];
     
 //    cellBtn.backgroundColor = [UIColor cyanColor];
     
-//    UIView *view = [[UIView alloc] initWithFrame:cellBtn.bounds];
-//    view.backgroundColor = [UIColor redColor];
-//    self.selectedBackgroundView = view;
+    UIView *view = [[UIView alloc] initWithFrame:cellBtn.bounds];
+    view.backgroundColor = itemHighlightedColor;
+    self.selectedBackgroundView = view;
     
     [self.contentView addSubview:cellBtn];
     
@@ -45,12 +44,17 @@
 - (void)setTitle:(NSString *)title{
     _title = title;
     
-    if ([title isEqualToString:@"---隐藏箭头---"]) {
+    if ([title isEqualToString:arrowDownTitle]) {
         
-        [self.cellBtn setImage:[UIImage imageNamed:@"images.bundle/arrow_down_gray"] forState:UIControlStateNormal];
+        [self.cellBtn setImage:[UIImage imageNamed:@"images.bundle/arrow_down"] forState:UIControlStateNormal];
         [self.cellBtn setTitle:nil forState:UIControlStateNormal];
         return;
+    }else if ([title isEqualToString:arrowUpTitle]){
+        
+        [self.cellBtn setImage:[UIImage imageNamed:@"images.bundle/arrow_up"] forState:UIControlStateNormal];
+        [self.cellBtn setTitle:nil forState:UIControlStateNormal];
     }
+    
     [self.cellBtn setImage:nil forState:UIControlStateNormal];
     [self.cellBtn setTitle:title forState:UIControlStateNormal];
 }
@@ -60,6 +64,7 @@
     
     self.cellBtn.frame = self.bounds;
 }
+
 
 
 

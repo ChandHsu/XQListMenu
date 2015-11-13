@@ -14,6 +14,7 @@
 @interface XQListMenuView ()<XQListMenuViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *titleModalArray;
+@property (nonatomic, assign) XQListMenuType menu_type;
 
 @end
 
@@ -25,7 +26,7 @@
     [super viewDidLoad];
     
     self.tableView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
-    
+    self.menu_type = menuType;
 }
 
 #pragma mark - Table view data source
@@ -89,6 +90,13 @@
     [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+- (void)listMenuViewCellDidClickItenWithTitle:(NSString *)title{
+    
+    if (self.clickBlock) {
+        self.clickBlock(title);
+    }
+}
+
 - (void)setItemTitleArrays:(NSArray *)itemTitleArrays{
     _itemTitleArrays = itemTitleArrays;
     
@@ -97,13 +105,77 @@
     for (NSArray *array in itemTitleArrays) {
         
         XQListMenuTitle *titleModal = [[XQListMenuTitle alloc] init];
-        titleModal.titleArray = array;
+        titleModal.titleArray = [NSMutableArray arrayWithArray:array];
         titleModal.showingMore = NO;
         [titleModalArray addObject:titleModal];
         
     }
     self.titleModalArray = titleModalArray;
     
+}
+
+- (NSDictionary *)getSelectedDict{
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    for (int j=0; j<self.titleArray.count; j++) {
+        
+        XQListMenuTitle *titleModal = self.titleModalArray[j];
+        
+        NSIndexSet *indexSet = titleModal.selectedIndexSet;
+        
+        NSString *dictKey = [NSString stringWithFormat:@"%@",self.titleArray[j]];
+        
+        if (indexSet.count==0){
+            dict[dictKey] = @[];
+            continue;
+        }
+        
+        NSMutableArray *seleteTitleArray = [ NSMutableArray array];
+        [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = titleModal.titleArray[idx];
+            [seleteTitleArray addObject:title];
+        }];
+        
+        
+        dict[dictKey] = seleteTitleArray;
+    }
+    
+    return dict;
+}
+
+- (void)reverseSelectAllItem{
+    
+    BOOL isAllSelect = YES;//全选状态
+    
+    for (XQListMenuTitle *titleModal in self.titleModalArray) {
+        if (titleModal.selectedIndexSet.count != titleModal.titleArray.count) {
+            isAllSelect = NO;
+            break;
+        }
+    }
+    
+    if (isAllSelect) {// 取消全选
+        for (XQListMenuTitle *titleModal in self.titleModalArray) {
+            
+            [titleModal.selectedIndexSet removeAllIndexes];
+            titleModal.showingMore = NO;
+        }
+    }else{// 全选
+        for (XQListMenuTitle *titleModal in self.titleModalArray) {
+            
+            NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+            
+            for (int i = 0; i<titleModal.titleArray.count; i++) {
+                NSUInteger index = i;
+                [indexSet addIndex:index];
+            }
+            titleModal.selectedIndexSet = indexSet;
+            titleModal.showingMore = YES;
+        }
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{

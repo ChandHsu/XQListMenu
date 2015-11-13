@@ -8,11 +8,23 @@
 
 #import "XQListMenuTitle.h"
 #import "XQListMenuConfig.h"
+#import "XQListMenuCollectionViewCell.h"
 
 @implementation XQListMenuTitle
 
+- (NSMutableIndexSet *)selectedIndexSet{
+    if (!_selectedIndexSet) {
+        _selectedIndexSet = [NSMutableIndexSet indexSet];
+    }
+    return _selectedIndexSet;
+}
 
-- (void)setTitleArray:(NSArray *)titleArray{
+
+- (void)setTitleArray:(NSMutableArray *)titleArray{
+    
+    if (furlable) {// 如果支持收拢
+        [titleArray addObject:arrowUpTitle];
+    }
     _titleArray = titleArray;
     
     int simpleLineItemCount = [UIScreen mainScreen].bounds.size.width/itemWidth;
@@ -32,7 +44,7 @@
         NSString *title = array[i];
         [hideTitleArray addObject:title];
     }
-    NSString *arrowTitle = @"---隐藏箭头---";// 添加箭头栏
+    NSString *arrowTitle = arrowDownTitle;// 添加箭头栏
     [hideTitleArray addObject:arrowTitle];
     self.hideTitleArray = hideTitleArray;
     

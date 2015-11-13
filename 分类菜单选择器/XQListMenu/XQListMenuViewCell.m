@@ -15,6 +15,7 @@
 <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak)  UICollectionView *collectionview;
+@property (nonatomic, assign) XQListMenuType menu_type;
 
 
 @end
@@ -45,6 +46,8 @@
 
 - (void)addCollectionview
 {
+    self.menu_type = menuType;
+    
     XQListMenuLayout *flowLayout    = [[XQListMenuLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     
@@ -54,6 +57,10 @@
     UICollectionView  *collectionview   = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.titleModal.hideHeight) collectionViewLayout:flowLayout];
     
     collectionview.backgroundColor = [UIColor whiteColor];
+    
+    if (self.menu_type == XQListMenuTypeMultiSelect) {
+        collectionview.allowsMultipleSelection = YES;
+    }
     
     collectionview.dataSource = self;
     collectionview.delegate = self;
@@ -83,24 +90,38 @@
         cell.title =  self.titleModal.hideTitleArray[indexPath.row];
     }
     
+    if ([self.titleModal.selectedIndexSet containsIndex:indexPath.item]) {
+        
+        if (!([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle])) {
+            [self.collectionview selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+            cell.selected = YES;
+        }
+    }
+    
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self.collectionview deselectItemAtIndexPath:indexPath animated:YES];
-    
     XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[self.collectionview cellForItemAtIndexPath:indexPath];
     
-    if ([cell.title isEqualToString:@"---隐藏箭头---"]) {
+    
+    if ([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle]) {
         if ([self.delegate respondsToSelector:@selector(listMenuViewCellDidClickShowMore:indexpath:)]) {
             
             self.titleModal.showingMore = !self.titleModal.showingMore;
-            
             [self.delegate listMenuViewCellDidClickShowMore:self.titleModal.showingMore indexpath:self.indexpath];
-            [self.collectionview reloadData];
+        }
+    }else {
+        
+        if (self.menu_type == XQListMenuTypeMultiSelect) return;
+        
+        if ([self.delegate respondsToSelector:@selector(listMenuViewCellDidClickItenWithTitle:)]) {
+            [self.delegate listMenuViewCellDidClickItenWithTitle:cell.title];
         }
     }
+    
+    [self.collectionview deselectItemAtIndexPath:indexPath animated:YES];
     
 }
 
@@ -127,6 +148,30 @@
     
     [self.collectionview reloadData];
 }
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[self.collectionview cellForItemAtIndexPath:indexPath];
+    if (self.menu_type == XQListMenuTypeMultiSelect) {
+        if (([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle])) {
+            
+            [self.titleModal.selectedIndexSet addIndex:indexPath.item];
+        }
+    }
+    
+    return YES;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.menu_type == XQListMenuTypeMultiSelect) {
+        [self.titleModal.selectedIndexSet removeIndex:indexPath.item];
+        
+    }
+    return YES;
+}
+
+
 
 
 

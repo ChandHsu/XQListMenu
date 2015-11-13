@@ -11,6 +11,8 @@
 
 @interface AppDelegate ()
 
+@property (nonatomic, weak) XQListMenuView *menuView;
+
 @end
 
 @implementation AppDelegate
@@ -20,10 +22,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
-    XQListMenuView *vc = [[XQListMenuView alloc] init];
+    XQListMenuView *menuView = [[XQListMenuView alloc] init];
     
-    vc.titleArray = @[@"---------美食---------",@"---------娱乐---------",@"---------美容保健---------",@"---------酒店---------",@"---------电影---------"];
-    vc.itemTitleArrays = @[
+    menuView.titleArray = @[@"☆☆☆☆☆☆ 美食 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 娱乐 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 美容保健 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 酒店 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 电影 ☆☆☆☆☆☆"];
+    menuView.itemTitleArrays = @[
   @[@"火锅",@"自助餐",@"生日蛋糕",@"西餐",@"香锅烤鱼",@"云南菜",@"日韩料理",@"江浙菜",@"咖啡酒吧",@"素菜",@"川湘菜",@"西北菜",@"海鲜",@"蒙菜",@"中式烧烤",@"烤串",@"东南亚菜",@"汤",@"粥",@"炖菜",@"米饭",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13"],
   @[@"KTV",@"足疗按摩",@"运动健身",@"酒吧",@"咖啡",@"儿童乐园",@"桌游",@"电玩",@"密室逃脱",@"真人CS",@"演出赛事",@"DIY",@"手工",@"点播电影",@"体育赛事",@"国产单机",@"武侠网游",@"真人交友",@"舞厅",@"Disco",@"DJ",@"萨芬胡",@"多撒好的"],
   @[@"美容",@"美体",@"个护化妆",@"理发",@"食品保健",@"瑜伽",@"舞蹈",@"母婴玩具",@"服装",@"内衣",@"美甲",@"户外运动",@"图书杂志",@"阿斯顿",@"佛挡杀佛",@"工地上减肥",@"防守对方",@"狗肉馆",@"快回家回家",@"飞蛾晚饭"],
@@ -31,9 +33,36 @@
   @[@"2D",@"3D",@"情侣电影",@"主题电影",@"爱情动作",@"武侠",@"言情",@"肥皂",@"都市异能",@"穿越",@"相声",@"小品",@"微电影",@"生活剧",@"发顺丰",@"都发生奋斗"]
   ];
     
+    menuView.clickBlock = ^(NSString *title){
+        NSLog(@"------++++++++%@",title);
+    };
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.menuView = menuView;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:menuView];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    btn.frame = CGRectMake(0, 0, 30, 30);
+    [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+    menuView.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    btn1.frame = CGRectMake(0, 0, 30, 30);
+    [btn1 addTarget:self action:@selector(btnClick1) forControlEvents:UIControlEventTouchUpInside];
+    menuView.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn1];
+    
+    self.window.rootViewController = nav;
     return YES;
+}
+
+- (void)btnClick{
+
+    NSDictionary *dict = [self.menuView getSelectedDict];
+    NSLog(@"%@",dict);
+}
+- (void)btnClick1{
+    [self.menuView reverseSelectAllItem];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

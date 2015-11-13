@@ -13,6 +13,7 @@
 
 @required
 - (void)listMenuViewCellDidClickShowMore:(BOOL)showingMore indexpath:(NSIndexPath *)indexpath;
+- (void)listMenuViewCellDidClickItenWithTitle:(NSString *)title;
 
 @end
 

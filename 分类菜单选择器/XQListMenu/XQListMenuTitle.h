@@ -11,11 +11,13 @@
 
 @interface XQListMenuTitle : NSObject
 
-@property (nonatomic, strong) NSArray *titleArray;
+@property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) NSMutableArray *hideTitleArray;
 
 @property (nonatomic, assign) CGFloat normalHeight;
 @property (nonatomic, assign) CGFloat hideHeight;
 @property (nonatomic, assign) BOOL showingMore;
+
+@property (nonatomic, strong) NSMutableIndexSet *selectedIndexSet;
 
 @end
