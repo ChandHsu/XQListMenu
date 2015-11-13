@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "XQListMenuView.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,22 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+    
+    XQListMenuView *vc = [[XQListMenuView alloc] init];
+    
+    vc.titleArray = @[@"---------美食---------",@"---------娱乐---------",@"---------美容保健---------",@"---------酒店---------",@"---------电影---------"];
+    vc.itemTitleArrays = @[
+  @[@"火锅",@"自助餐",@"生日蛋糕",@"西餐",@"香锅烤鱼",@"云南菜",@"日韩料理",@"江浙菜",@"咖啡酒吧",@"素菜",@"川湘菜",@"西北菜",@"海鲜",@"蒙菜",@"中式烧烤",@"烤串",@"东南亚菜",@"汤",@"粥",@"炖菜",@"米饭",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13"],
+  @[@"KTV",@"足疗按摩",@"运动健身",@"酒吧",@"咖啡",@"儿童乐园",@"桌游",@"电玩",@"密室逃脱",@"真人CS",@"演出赛事",@"DIY",@"手工",@"点播电影",@"体育赛事",@"国产单机",@"武侠网游",@"真人交友",@"舞厅",@"Disco",@"DJ",@"萨芬胡",@"多撒好的"],
+  @[@"美容",@"美体",@"个护化妆",@"理发",@"食品保健",@"瑜伽",@"舞蹈",@"母婴玩具",@"服装",@"内衣",@"美甲",@"户外运动",@"图书杂志",@"阿斯顿",@"佛挡杀佛",@"工地上减肥",@"防守对方",@"狗肉馆",@"快回家回家",@"飞蛾晚饭"],
+  @[@"经济型酒店",@"豪华酒店",@"主题酒店",@"度假酒店",@"公寓型酒店",@"客栈",@"青年旅店",@"如家酒店",@"7天连锁",@"奋斗是丰富",@"狗肉馆",@"粉色烦",@"如果他",@"飞蛾无关",@"法官入股",@"敢惹风格"],
+  @[@"2D",@"3D",@"情侣电影",@"主题电影",@"爱情动作",@"武侠",@"言情",@"肥皂",@"都市异能",@"穿越",@"相声",@"小品",@"微电影",@"生活剧",@"发顺丰",@"都发生奋斗"]
+  ];
+    
+    
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:vc];
     return YES;
 }
 
