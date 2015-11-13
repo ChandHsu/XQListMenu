@@ -25,7 +25,7 @@
 
 ###1.单次点击
 ####效果图:
-![](https://github.com/qianggeProgramer/XQListMenuView/blob/master/1.gif)
+![](https://github.com/ChandHsu/XQListMenu/blob/master/1.gif)<br>
 1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeSimpleSelect`<br>
 2.在初始化栏目实现回调的block:
 ```objc
@@ -37,7 +37,7 @@
 ```
 ###2.多选操作
 ####效果图:
-![](https://github.com/qianggeProgramer/XQListMenuView/blob/master/2.gif)
+![](https://github.com/ChandHsu/XQListMenu/blob/master/2.gif)<br>
 1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeSimpleSelect`<br>
 2.调用`menuView`的方法:
 ```objc
