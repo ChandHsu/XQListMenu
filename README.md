@@ -60,7 +60,7 @@ typedef enum{
 
 #define menuType  XQListMenuTypeMultiSelect
 
-#define furlable  YES //能够收拢
+#define furlable  YES //是否支持收拢,返回NO没有收拢箭头选项
 
 #define itemWidth (([UIScreen mainScreen].bounds.size.width-20)/4) // item的宽度
 #define itemHeight 35 // item的高度
@@ -68,6 +68,7 @@ typedef enum{
 #define itemHighlightedColor  [UIColor cyanColor] // item的选中/高亮背景色
 
 ```
+
 其中有很多不足的地方,如果有什么建议或意见,还请一起交流探讨,大家共同进步,我的联系方式  QQ:296646879
 您的每一次 Star 都是给我的鼓励,如果对你有帮助,请 Star 或 Fork 一下.☺
 
