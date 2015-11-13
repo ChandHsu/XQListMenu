@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XQListMenuConfig.h"
 
-#define arrowUpTitle @"---上箭头---"
+#define arrowUpTitle @"---上---"
 #define arrowDownTitle @"---下箭头---"
 
 @interface XQListMenuCollectionViewCell : UICollectionViewCell

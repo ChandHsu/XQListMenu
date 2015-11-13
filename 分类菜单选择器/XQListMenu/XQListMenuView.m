@@ -115,6 +115,7 @@
 }
 
 - (NSDictionary *)getSelectedDict{
+    if (self.menu_type == XQListMenuTypeSimpleSelect) return nil;
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
@@ -145,7 +146,7 @@
 }
 
 - (void)reverseSelectAllItem{
-    
+    if (self.menu_type == XQListMenuTypeSimpleSelect) return;
     BOOL isAllSelect = YES;//全选状态
     
     for (XQListMenuTitle *titleModal in self.titleModalArray) {

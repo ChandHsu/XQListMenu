@@ -105,12 +105,13 @@
     
     XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[self.collectionview cellForItemAtIndexPath:indexPath];
     
-    
     if ([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle]) {
         if ([self.delegate respondsToSelector:@selector(listMenuViewCellDidClickShowMore:indexpath:)]) {
             
             self.titleModal.showingMore = !self.titleModal.showingMore;
             [self.delegate listMenuViewCellDidClickShowMore:self.titleModal.showingMore indexpath:self.indexpath];
+            [self.collectionview deselectItemAtIndexPath:indexPath animated:YES];
+            cell.selected = NO;
         }
     }else {
         
@@ -153,7 +154,7 @@
     
     XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[self.collectionview cellForItemAtIndexPath:indexPath];
     if (self.menu_type == XQListMenuTypeMultiSelect) {
-        if (([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle])) {
+        if (!([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle])) {
             
             [self.titleModal.selectedIndexSet addIndex:indexPath.item];
         }

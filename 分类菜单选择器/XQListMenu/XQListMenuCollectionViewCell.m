@@ -50,9 +50,9 @@
         [self.cellBtn setTitle:nil forState:UIControlStateNormal];
         return;
     }else if ([title isEqualToString:arrowUpTitle]){
-        
         [self.cellBtn setImage:[UIImage imageNamed:@"images.bundle/arrow_up"] forState:UIControlStateNormal];
         [self.cellBtn setTitle:nil forState:UIControlStateNormal];
+        return;
     }
     
     [self.cellBtn setImage:nil forState:UIControlStateNormal];

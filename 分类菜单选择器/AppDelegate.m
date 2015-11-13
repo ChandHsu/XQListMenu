@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "XQListMenuView.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UIAlertViewDelegate>
 
 @property (nonatomic, weak) XQListMenuView *menuView;
 
@@ -34,25 +34,30 @@
   ];
     
     menuView.clickBlock = ^(NSString *title){
-        NSLog(@"------++++++++%@",title);
+        [self showAlert:title];
     };
     
     self.menuView = menuView;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:menuView];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    btn.frame = CGRectMake(0, 0, 30, 30);
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 100, 30);
+    [btn setTitle:@"打印已选" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
     menuView.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     
-    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    btn1.frame = CGRectMake(0, 0, 30, 30);
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn1.frame = CGRectMake(0, 0, 100, 30);
+    [btn1 setTitle:@"全选/反选" forState:UIControlStateNormal];
+    [btn1 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(btnClick1) forControlEvents:UIControlEventTouchUpInside];
     menuView.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn1];
     
     self.window.rootViewController = nav;
+    
     return YES;
 }
 
@@ -64,6 +69,14 @@
 - (void)btnClick1{
     [self.menuView reverseSelectAllItem];
 }
+
+- (void)showAlert:(NSString *)title{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"点击了%@",title] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    alert.title = [NSString stringWithFormat:@"点击了%@",title];
+    [alert show];
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
