@@ -42,7 +42,7 @@
 2.调用`menuView`的方法:
 ```objc
 
-/***  获取所有选中的item,key就是大标题  **/
+/***  获取所有选中的item,返回每个分类的选中item数组，key就是大标题  **/
 - (NSDictionary *)getSelectedDict;
 /***  全选,反选  **/
 -(void)reverseSelectAllItem;
