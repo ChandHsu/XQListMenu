@@ -133,7 +133,13 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    return UIEdgeInsetsMake(10, 10, 10, 10);
+    int simpleLineItemCount = [UIScreen mainScreen].bounds.size.width/itemWidth;
+    
+    CGFloat totalW = simpleLineItemCount * itemWidth;
+    
+    CGFloat margin = (self.collectionview.frame.size.width - totalW)/2;
+    
+    return UIEdgeInsetsMake(margin, margin, margin, margin);
 }
 
 
