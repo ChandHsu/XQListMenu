@@ -22,31 +22,51 @@
 
 - (void)setTitleArray:(NSMutableArray *)titleArray{
     
-    if (furlable) {// 如果支持收拢
-        [titleArray addObject:arrowUpTitle];
-    }
-    _titleArray = titleArray;
-    
     int simpleLineItemCount = [UIScreen mainScreen].bounds.size.width/itemWidth;
-    NSArray *array = titleArray;
-    int lineCount = (int)array.count/simpleLineItemCount + (int)(array.count % simpleLineItemCount?1:0);
-    CGFloat normalHeight = 20 + lineCount*itemHeight;
-    CGFloat hideHeight = 20 + (int)lineCount/2*itemHeight + (int)(lineCount%2?itemHeight:0);
     
-    self.normalHeight = normalHeight;
-    self.hideHeight = hideHeight;
-    self.showingMore = NO;
-    
-    int hideLineLocation = self.hideHeight/itemHeight;// 隐藏的所在行
-    NSMutableArray *hideTitleArray = [NSMutableArray array];
-    
-    for (int i=0; i<4*hideLineLocation-1; i++) {
-        NSString *title = array[i];
-        [hideTitleArray addObject:title];
+    if (hideFunction) {
+        
+        if (titleArray.count<=simpleLineItemCount) {
+            self.normalHeight = 20 + itemHeight;
+            self.hideHeight = self.normalHeight;
+            self.showingMore = NO;
+            self.hideTitleArray = titleArray;
+        }else{
+            
+            if (furlable) {// 如果支持收拢
+                [titleArray addObject:arrowUpTitle];
+            }
+//            NSArray *array = titleArray;
+            int lineCount = (int)titleArray.count/simpleLineItemCount + (int)(titleArray.count % simpleLineItemCount?1:0);
+            CGFloat normalHeight = 20 + lineCount*itemHeight;
+            CGFloat hideHeight = 20 + (int)lineCount/2*itemHeight + (int)(lineCount%2?itemHeight:0);
+            
+            self.normalHeight = normalHeight;
+            self.hideHeight = hideHeight;
+            self.showingMore = NO;
+            
+            int hideLineLocation = self.hideHeight/itemHeight;// 隐藏的所在行
+            NSMutableArray *hideTitleArray = [NSMutableArray array];
+            
+            for (int i=0; i<4*hideLineLocation-1; i++) {
+                NSString *title = titleArray[i];
+                [hideTitleArray addObject:title];
+            }
+            NSString *arrowTitle = arrowDownTitle;// 添加箭头栏
+            [hideTitleArray addObject:arrowTitle];
+            self.hideTitleArray = hideTitleArray;
+            
+        }
+    }else{
+        int lineCount = (int)titleArray.count/simpleLineItemCount + (int)(titleArray.count % simpleLineItemCount?1:0);
+        self.normalHeight = 20 + lineCount*itemHeight;
+        self.hideHeight = self.normalHeight;
+        self.hideTitleArray = titleArray;
+        
     }
-    NSString *arrowTitle = arrowDownTitle;// 添加箭头栏
-    [hideTitleArray addObject:arrowTitle];
-    self.hideTitleArray = hideTitleArray;
+    
+    _titleArray = titleArray;
+
     
 }
 
