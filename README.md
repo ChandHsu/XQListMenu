@@ -60,7 +60,8 @@ typedef enum{
 
 #define menuType  XQListMenuTypeMultiSelect
 
-#define furlable  YES //是否支持收拢,返回NO没有收拢箭头选项
+#define hideFunction YES // 是否开启隐藏功能
+#define furlable  YES //是否支持收拢,返回NO没有收拢箭头选项(如果 hideFunction 为 NO,此项设置无效)
 
 #define itemWidth (([UIScreen mainScreen].bounds.size.width-20)/4) // item的宽度
 #define itemHeight 35 // item的高度
