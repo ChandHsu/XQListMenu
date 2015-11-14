@@ -24,6 +24,10 @@
     
     int simpleLineItemCount = [UIScreen mainScreen].bounds.size.width/itemWidth;
     
+    int beginLine_example = beginHideLine;
+    
+    int beginLine = abs(beginLine_example);
+    
     if (hideFunction) {
         
         int lineCount = (int)titleArray.count/simpleLineItemCount + (int)(titleArray.count % simpleLineItemCount?1:0);
@@ -35,7 +39,7 @@
             self.hideTitleArray = titleArray;
         }else{//  || lineCount<=beginHideLine
             
-            if (lineCount<=beginHideLine) {
+            if (lineCount<=beginLine) {
                 self.normalHeight = 20 + itemHeight * lineCount;
                 self.hideHeight = self.normalHeight;
                 self.showingMore = NO;
@@ -49,22 +53,23 @@
                 
                 int lineCount_behind = (int)titleArray.count/simpleLineItemCount + (int)(titleArray.count % simpleLineItemCount?1:0);
                 CGFloat normalHeight = 20 + lineCount_behind*itemHeight;
-                CGFloat hideHeight = 20 + (int)lineCount_behind/2*itemHeight + (int)(lineCount_behind%2?itemHeight:0);
-                
                 self.normalHeight = normalHeight;
-                self.hideHeight = hideHeight;
                 self.showingMore = NO;
+                
+                CGFloat hideHeight = 20 + (beginLine == 0?((int)lineCount_behind/2*itemHeight + (int)(lineCount_behind%2?itemHeight:0)):(itemHeight * beginLine));
+                self.hideHeight = hideHeight;
                 
                 int hideLineLocation = self.hideHeight/itemHeight;// 隐藏的所在行
                 NSMutableArray *hideTitleArray = [NSMutableArray array];
                 
-                for (int i=0; i<4*hideLineLocation-1; i++) {
+                for (int i=0; i<simpleLineItemCount*hideLineLocation-1; i++) {
                     NSString *title = titleArray[i];
                     [hideTitleArray addObject:title];
                 }
                 NSString *arrowTitle = arrowDownTitle;// 添加箭头栏
                 [hideTitleArray addObject:arrowTitle];
                 self.hideTitleArray = hideTitleArray;
+                
             }
             
         }

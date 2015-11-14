@@ -19,7 +19,7 @@ typedef enum{
 #define hideFunction YES
 #define furlable  YES
 
-#define beginHideLine 4
+#define beginHideLine 0
 
 #define itemWidth (([UIScreen mainScreen].bounds.size.width-20)/4)
 #define itemHeight 35
