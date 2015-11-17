@@ -59,7 +59,33 @@
                 CGFloat hideHeight = 20 + (beginLine == 0?((int)lineCount_behind/2*itemHeight + (int)(lineCount_behind%2?itemHeight:0)):(itemHeight * beginLine));
                 self.hideHeight = hideHeight;
                 
-                int hideLineLocation = self.hideHeight/itemHeight;// 隐藏的所在行
+                int hideLineLocation = hideHeight/itemHeight;// 隐藏的所在行
+                
+                
+                if (furlable&&(!beginLine)) {// 添加收拢箭头之前的正常高度
+                    
+                    CGFloat normalHeight_before = ((int)(titleArray.count-1)/simpleLineItemCount + (int)((titleArray.count-1) % simpleLineItemCount?1:0))*itemHeight+20;
+                    
+                    if ((normalHeight != normalHeight_before)&&(normalHeight_before/hideHeight<2)) {
+                        
+                        int lineCount_before = normalHeight_before/itemHeight;
+                        
+                        if (lineCount_before/hideLineLocation!=2) {
+                            
+                            int remainNum = (int)lineCount_before%2;
+                            
+                            if (remainNum) {
+                                hideLineLocation = (int)lineCount_before/2+1;
+                            }else{
+                                hideLineLocation = (int)lineCount_before/2;
+                            }
+                            
+                            self.hideHeight = hideLineLocation*itemHeight+20;
+                        }
+                        
+                    }
+                }
+                
                 NSMutableArray *hideTitleArray = [NSMutableArray array];
                 
                 for (int i=0; i<simpleLineItemCount*hideLineLocation-1; i++) {
