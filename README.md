@@ -38,7 +38,7 @@
 ###2.多选操作
 ####效果图:
 ![](https://github.com/ChandHsu/XQListMenu/blob/master/2.gif)<br>
-1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeSimpleSelect`<br>
+1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeMultiSelect`<br>
 2.调用`menuView`的方法:
 ```objc
 
