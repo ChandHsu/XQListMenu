@@ -7,12 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A74D5981BF468380002DC3B /* XQListMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A74D5901BF468380002DC3B /* XQListMenuCollectionViewCell.m */; };
-		4A74D5991BF468380002DC3B /* XQListMenuLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A74D5931BF468380002DC3B /* XQListMenuLayout.m */; };
 		4A74D59A1BF468380002DC3B /* XQListMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A74D5951BF468380002DC3B /* XQListMenuView.m */; };
-		4A74D59B1BF468380002DC3B /* XQListMenuViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A74D5971BF468380002DC3B /* XQListMenuViewCell.m */; };
 		4A74D5A01BF4777F0002DC3B /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A74D59F1BF4777F0002DC3B /* images.bundle */; };
-		4A74D5A31BF488FD0002DC3B /* XQListMenuTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A74D5A21BF488FD0002DC3B /* XQListMenuTitle.m */; };
 		4ADE10E41BF1D7ED00A9C7E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE10E31BF1D7ED00A9C7E2 /* main.m */; };
 		4ADE10E71BF1D7ED00A9C7E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE10E61BF1D7ED00A9C7E2 /* AppDelegate.m */; };
 		4ADE10ED1BF1D7ED00A9C7E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ADE10EB1BF1D7ED00A9C7E2 /* Main.storyboard */; };
@@ -40,18 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4A74D58F1BF468380002DC3B /* XQListMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuCollectionViewCell.h; sourceTree = "<group>"; };
-		4A74D5901BF468380002DC3B /* XQListMenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQListMenuCollectionViewCell.m; sourceTree = "<group>"; };
 		4A74D5911BF468380002DC3B /* XQListMenuConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuConfig.h; sourceTree = "<group>"; };
-		4A74D5921BF468380002DC3B /* XQListMenuLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuLayout.h; sourceTree = "<group>"; };
-		4A74D5931BF468380002DC3B /* XQListMenuLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQListMenuLayout.m; sourceTree = "<group>"; };
 		4A74D5941BF468380002DC3B /* XQListMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuView.h; sourceTree = "<group>"; };
 		4A74D5951BF468380002DC3B /* XQListMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQListMenuView.m; sourceTree = "<group>"; };
-		4A74D5961BF468380002DC3B /* XQListMenuViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuViewCell.h; sourceTree = "<group>"; };
-		4A74D5971BF468380002DC3B /* XQListMenuViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQListMenuViewCell.m; sourceTree = "<group>"; };
 		4A74D59F1BF4777F0002DC3B /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
-		4A74D5A11BF488FD0002DC3B /* XQListMenuTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuTitle.h; sourceTree = "<group>"; };
-		4A74D5A21BF488FD0002DC3B /* XQListMenuTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQListMenuTitle.m; sourceTree = "<group>"; };
 		4ADE10DF1BF1D7ED00A9C7E2 /* 分类菜单选择器.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "分类菜单选择器.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADE10E31BF1D7ED00A9C7E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4ADE10E51BF1D7ED00A9C7E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -99,14 +87,6 @@
 				4A74D5911BF468380002DC3B /* XQListMenuConfig.h */,
 				4A74D5941BF468380002DC3B /* XQListMenuView.h */,
 				4A74D5951BF468380002DC3B /* XQListMenuView.m */,
-				4A74D5961BF468380002DC3B /* XQListMenuViewCell.h */,
-				4A74D5971BF468380002DC3B /* XQListMenuViewCell.m */,
-				4A74D5A11BF488FD0002DC3B /* XQListMenuTitle.h */,
-				4A74D5A21BF488FD0002DC3B /* XQListMenuTitle.m */,
-				4A74D58F1BF468380002DC3B /* XQListMenuCollectionViewCell.h */,
-				4A74D5901BF468380002DC3B /* XQListMenuCollectionViewCell.m */,
-				4A74D5921BF468380002DC3B /* XQListMenuLayout.h */,
-				4A74D5931BF468380002DC3B /* XQListMenuLayout.m */,
 				4A74D59F1BF4777F0002DC3B /* images.bundle */,
 			);
 			path = XQListMenu;
@@ -304,12 +284,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A74D5A31BF488FD0002DC3B /* XQListMenuTitle.m in Sources */,
 				4A74D59A1BF468380002DC3B /* XQListMenuView.m in Sources */,
 				4ADE10E71BF1D7ED00A9C7E2 /* AppDelegate.m in Sources */,
-				4A74D5991BF468380002DC3B /* XQListMenuLayout.m in Sources */,
-				4A74D5981BF468380002DC3B /* XQListMenuCollectionViewCell.m in Sources */,
-				4A74D59B1BF468380002DC3B /* XQListMenuViewCell.m in Sources */,
 				4ADE10E41BF1D7ED00A9C7E2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,8 +14,7 @@ typedef void (^ClickBlock)(NSString *showText);
 
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *itemTitleArrays;
-
-@property (nonatomic, copy) ClickBlock clickBlock;
+@property (nonatomic, copy  ) ClickBlock clickBlock;
 
 /***  获取所有选中的item,key就是大标题  **/
 - (NSDictionary *)getSelectedDict;
