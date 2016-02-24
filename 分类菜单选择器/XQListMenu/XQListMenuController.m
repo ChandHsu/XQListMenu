@@ -1,12 +1,12 @@
 //
-//  XQListMenuView.m
+//  XQListMenuController.m
 //  分类菜单选择器
 //
 //  Created by 徐强 on 15/11/11.
 //  Copyright © 2015年 xuqiang. All rights reserved.
 //
 
-#import "XQListMenuView.h"
+#import "XQListMenuController.h"
 #import "XQListMenuConfig.h"
 
 
@@ -387,14 +387,14 @@
 @end
 
 
-@interface XQListMenuView ()<XQListMenuViewCellDelegate>
+@interface XQListMenuController ()<XQListMenuViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *titleModalArray;
 @property (nonatomic, assign) XQListMenuType menu_type;
 
 @end
 
-@implementation XQListMenuView
+@implementation XQListMenuController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

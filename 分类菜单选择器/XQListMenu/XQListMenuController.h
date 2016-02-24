@@ -1,5 +1,5 @@
 //
-//  XQListMenuView.h
+//  XQListMenuController.h
 //  分类菜单选择器
 //
 //  Created by 徐强 on 15/11/11.
@@ -10,7 +10,7 @@
 
 typedef void (^ClickBlock)(NSString *showText);
 
-@interface XQListMenuView : UITableViewController
+@interface XQListMenuController : UITableViewController
 
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *itemTitleArrays;
