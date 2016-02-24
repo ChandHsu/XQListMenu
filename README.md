@@ -21,7 +21,7 @@
   ];
   
 ```
-* `XQListMenuController`是以`UITableViewController`为主体,这里就不多说了
+* `XQListMenuController`是以`UITableViewController`为主体
 
 ###1.单次点击
 ####效果图:
@@ -30,7 +30,7 @@
 2.在初始化栏目实现回调的block:
 ```objc
     
-    menuView.clickBlock = ^(NSString *title){
+    menuVc.clickBlock = ^(NSString *title){
         // 添加你的代码,每次点击就会执行
     };
 
