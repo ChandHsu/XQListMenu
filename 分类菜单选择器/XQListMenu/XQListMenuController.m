@@ -13,11 +13,27 @@
 #define arrowUpTitle @"---上---"
 #define arrowDownTitle @"---下箭头---"
 
+@interface NSString (XQExtension)
+- (BOOL)isEqualToStringInArray:(NSArray *)stringArray;
+@end
+
+@implementation NSString (XQExtension)
+- (BOOL)isEqualToStringInArray:(NSArray *)stringArray{
+    for(NSString *childStr in stringArray){
+        if ([self isEqualToString:childStr]) {
+            return true;
+        }
+    }
+    return false;
+}
+@end
+
 @interface XQListMenuCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, weak) UIButton *cellBtn;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL showingArrow;
+@property (nonatomic, assign) BOOL disabled;
 
 @end
 
@@ -69,6 +85,16 @@
     [self.cellBtn setImage:nil forState:UIControlStateNormal];
     [self.cellBtn setTitle:title forState:UIControlStateNormal];
 }
+- (void)setDisabled:(BOOL)disabled{
+    if (_disabled == disabled) return;
+    _disabled = disabled;
+    if (disabled) {
+        [self.cellBtn setTitleColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1] forState:UIControlStateDisabled];
+    }else{
+        [self.cellBtn setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
+    }
+    self.userInteractionEnabled = !disabled;
+}
 - (void)layoutSubviews{
     [super layoutSubviews];
     
@@ -82,6 +108,10 @@
 
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) NSMutableArray *hideTitleArray;
+@property (nonatomic, strong) NSArray *disabledTitleArray;
+@property (nonatomic, strong) NSArray *disabledFlagsArray;
+
+
 @property (nonatomic, assign) CGFloat normalHeight;
 @property (nonatomic, assign) CGFloat hideHeight;
 @property (nonatomic, assign) BOOL showingMore;
@@ -188,6 +218,20 @@
     _titleArray = titleArray;
     
     
+}
+- (void)setDisabledTitleArray:(NSArray *)disabledTitleArray{
+    _disabledTitleArray = disabledTitleArray;
+    NSMutableArray *disabledFlagsArray = [NSMutableArray array];
+    for (NSString *title in self.titleArray) {
+        
+        if ([title isEqualToStringInArray:disabledTitleArray]) {
+            [disabledFlagsArray addObject:[NSNumber numberWithBool:true]];
+        }else{
+            [disabledFlagsArray addObject:[NSNumber numberWithBool:false]];
+        }
+    }
+    
+    self.disabledFlagsArray = disabledFlagsArray;
 }
 
 @end
@@ -299,6 +343,7 @@
     static NSString *ID = @"XQListMenuViewCellCollectionviewCell";
     
     XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    
     if (self.titleModal.showingMore) {
         cell.title =  self.titleModal.titleArray[indexPath.row];
     }else{
@@ -312,12 +357,14 @@
             cell.selected = YES;
         }
     }
+    cell.disabled = [self.titleModal.disabledFlagsArray[indexPath.row] boolValue];
     
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[self.collectionview cellForItemAtIndexPath:indexPath];
+    if (cell.disabled) return;
     
     if ([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle]) {
         if ([self.delegate respondsToSelector:@selector(listMenuViewCellDidClickShowMore:indexpath:)]) {
@@ -460,12 +507,11 @@
         self.clickBlock(title);
     }
 }
-- (void)setItemTitleArrays:(NSArray *)itemTitleArrays{
-    _itemTitleArrays = itemTitleArrays;
-    
+- (void)setItemTitlesArray:(NSArray *)itemTitlesArray{
+    _itemTitlesArray = itemTitlesArray;
     NSMutableArray *titleModalArray = [NSMutableArray array];
     
-    for (NSArray *array in itemTitleArrays) {
+    for (NSArray *array in itemTitlesArray) {
         
         XQListMenuTitle *titleModal = [[XQListMenuTitle alloc] init];
         titleModal.titleArray = [NSMutableArray arrayWithArray:array];
@@ -474,7 +520,13 @@
         
     }
     self.titleModalArray = titleModalArray;
-    
+}
+- (void)setDisabledItemTitlesArray:(NSArray *)disabledItemTitlesArray{
+    _disabledItemTitlesArray = disabledItemTitlesArray;
+    for (int i = 0; i<self.titleModalArray.count; i++) {
+        XQListMenuTitle *titleModal = self.titleModalArray[i];
+        titleModal.disabledTitleArray = disabledItemTitlesArray[i];
+    }
 }
 - (NSDictionary *)getSelectedDict{
     if (self.menu_type == XQListMenuTypeSimpleSelect) return nil;

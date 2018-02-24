@@ -13,7 +13,8 @@ typedef void (^ClickBlock)(NSString *showText);
 @interface XQListMenuController : UITableViewController
 
 @property (nonatomic, strong) NSArray *titleArray;
-@property (nonatomic, strong) NSArray *itemTitleArrays;
+@property (nonatomic, strong) NSArray *itemTitlesArray;
+@property (nonatomic, strong) NSArray *disabledItemTitlesArray;
 @property (nonatomic, copy  ) ClickBlock clickBlock;
 
 /***  获取所有选中的item,key就是大标题  **/

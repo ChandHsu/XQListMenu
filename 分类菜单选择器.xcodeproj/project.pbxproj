@@ -220,6 +220,7 @@
 				TargetAttributes = {
 					4ADE10DE1BF1D7ED00A9C7E2 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 93ULNFH5X5;
 					};
 					4ADE10F71BF1D7EE00A9C7E2 = {
 						CreatedOnToolsVersion = 7.1;
@@ -427,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93ULNFH5X5;
 				INFOPLIST_FILE = "分类菜单选择器/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -439,6 +441,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93ULNFH5X5;
 				INFOPLIST_FILE = "分类菜单选择器/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

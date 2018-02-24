@@ -14,7 +14,7 @@ typedef enum{
     XQListMenuTypeMultiSelect
 }XQListMenuType;
 
-#define menuType  XQListMenuTypeMultiSelect
+#define menuType  XQListMenuTypeSimpleSelect
 
 #define hideFunction YES
 #define furlable  YES
