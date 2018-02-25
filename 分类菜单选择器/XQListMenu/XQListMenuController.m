@@ -7,7 +7,6 @@
 //
 
 #import "XQListMenuController.h"
-#import "XQListMenuConfig.h"
 
 
 #define arrowUpTitle @"---上---"
@@ -34,6 +33,8 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL showingArrow;
 @property (nonatomic, assign) BOOL disabled;
+@property (nonatomic, strong) UIColor *highlightedColor;
+
 
 @end
 
@@ -54,13 +55,11 @@
     [cellBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     cellBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     cellBtn.enabled = NO;
-    [cellBtn setBackgroundColor:[UIColor clearColor]];
+    [cellBtn setBackgroundColor:[UIColor whiteColor]];
     
-    //    cellBtn.backgroundColor = [UIColor cyanColor];
-    
-    UIView *view = [[UIView alloc] initWithFrame:cellBtn.bounds];
-    view.backgroundColor = itemHighlightedColor;
-    self.selectedBackgroundView = view;
+//    UIView *view = [[UIView alloc] initWithFrame:cellBtn.bounds];
+//    view.backgroundColor = [UIColor cyanColor];
+//    self.selectedBackgroundView = view;
     
     [self.contentView addSubview:cellBtn];
     
@@ -95,6 +94,12 @@
     }
     self.userInteractionEnabled = !disabled;
 }
+- (void)setSelected:(BOOL)selected{
+    [super setSelected:selected];
+    if (!self.highlightedColor) self.highlightedColor = [UIColor cyanColor];
+    if (selected) self.cellBtn.backgroundColor = self.highlightedColor;
+    else  self.cellBtn.backgroundColor = [UIColor whiteColor];
+}
 - (void)layoutSubviews{
     [super layoutSubviews];
     
@@ -111,11 +116,17 @@
 @property (nonatomic, strong) NSArray *disabledTitleArray;
 @property (nonatomic, strong) NSArray *disabledFlagsArray;
 
-
 @property (nonatomic, assign) CGFloat normalHeight;
 @property (nonatomic, assign) CGFloat hideHeight;
 @property (nonatomic, assign) BOOL showingMore;
 @property (nonatomic, strong) NSMutableIndexSet *selectedIndexSet;
+
+@property (nonatomic, assign) BOOL hideFunction;
+@property (nonatomic, assign) BOOL furlable;
+@property (nonatomic, assign) int  beginHideLine;
+@property (nonatomic, assign) CGSize itemSize;
+@property (nonatomic, assign) XQListMenuType menuType;
+@property (nonatomic, strong) UIColor *itemHighlightedColor;
 
 @end
 
@@ -129,37 +140,65 @@
     return _selectedIndexSet;
 }
 - (void)setTitleArray:(NSMutableArray *)titleArray{
+    if (_titleArray == titleArray) return;
+    _titleArray = titleArray;
+    [self caculateHeight];
+}
+- (void)setHideFunction:(BOOL)hideFunction{
+    if (_hideFunction == hideFunction) return;
+    _hideFunction = hideFunction;
+    [self caculateHeight];
+}
+- (void)setFurlable:(BOOL)furlable{
+    if (_furlable == furlable) return;
+    _furlable = furlable;
+    [self caculateHeight];
+}
+- (void)setBeginHideLine:(int)beginHideLine{
+    if (_beginHideLine == beginHideLine) return;
+    _beginHideLine = beginHideLine;
+    [self caculateHeight];
+}
+- (void)setItemSize:(CGSize)itemSize{
+    if (CGSizeEqualToSize(itemSize, _itemSize)) return;
+    _itemSize = itemSize;
+    [self caculateHeight];
+}
+- (void)caculateHeight{
     
+    if (self.titleArray.count==0) return;
+    if (CGSizeEqualToSize(self.itemSize, CGSizeZero)) _itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-20)/4, 35);
+    
+    CGFloat itemWidth = self.itemSize.width;
+    CGFloat itemHeight = self.itemSize.height;
     int simpleLineItemCount = [UIScreen mainScreen].bounds.size.width/itemWidth;
     
-    int beginLine_example = beginHideLine;
+    int beginLine_example = self.beginHideLine;
     
     int beginLine = abs(beginLine_example);
     
-    if (hideFunction) {
+    if (self.hideFunction) {
         
-        int lineCount = (int)titleArray.count/simpleLineItemCount + (int)(titleArray.count % simpleLineItemCount?1:0);
+        int lineCount = (int)self.titleArray.count/simpleLineItemCount + (int)(self.titleArray.count % simpleLineItemCount?1:0);
         
-        if (titleArray.count<=simpleLineItemCount) {
+        if (self.titleArray.count<=simpleLineItemCount) {
             self.normalHeight = 20 + itemHeight;
             self.hideHeight = self.normalHeight;
             self.showingMore = NO;
-            self.hideTitleArray = titleArray;
+            self.hideTitleArray = self.titleArray;
         }else{//  || lineCount<=beginHideLine
             
             if (lineCount<=beginLine) {
                 self.normalHeight = 20 + itemHeight * lineCount;
                 self.hideHeight = self.normalHeight;
                 self.showingMore = NO;
-                self.hideTitleArray = titleArray;
+                self.hideTitleArray = self.titleArray;
                 
             }else{
                 
-                if (furlable) {// 如果支持收拢
-                    [titleArray addObject:arrowUpTitle];
-                }
+                if (self.furlable) [self.titleArray addObject:arrowUpTitle];
                 
-                int lineCount_behind = (int)titleArray.count/simpleLineItemCount + (int)(titleArray.count % simpleLineItemCount?1:0);
+                int lineCount_behind = (int)self.titleArray.count/simpleLineItemCount + (int)(self.titleArray.count % simpleLineItemCount?1:0);
                 CGFloat normalHeight = 20 + lineCount_behind*itemHeight;
                 self.normalHeight = normalHeight;
                 self.showingMore = NO;
@@ -170,9 +209,9 @@
                 int hideLineLocation = hideHeight/itemHeight;// 隐藏的所在行
                 
                 
-                if (furlable&&(!beginLine)) {// 添加收拢箭头之前的正常高度
+                if (self.furlable&&(!beginLine)) {// 添加收拢箭头之前的正常高度
                     
-                    CGFloat normalHeight_before = ((int)(titleArray.count-1)/simpleLineItemCount + (int)((titleArray.count-1) % simpleLineItemCount?1:0))*itemHeight+20;
+                    CGFloat normalHeight_before = ((int)(self.titleArray.count-1)/simpleLineItemCount + (int)((self.titleArray.count-1) % simpleLineItemCount?1:0))*itemHeight+20;
                     
                     if ((normalHeight != normalHeight_before)&&(normalHeight_before/hideHeight<2)) {
                         
@@ -197,7 +236,7 @@
                 NSMutableArray *hideTitleArray = [NSMutableArray array];
                 
                 for (int i=0; i<simpleLineItemCount*hideLineLocation-1; i++) {
-                    NSString *title = titleArray[i];
+                    NSString *title = self.titleArray[i];
                     [hideTitleArray addObject:title];
                 }
                 NSString *arrowTitle = arrowDownTitle;// 添加箭头栏
@@ -208,16 +247,12 @@
             
         }
     }else{
-        int lineCount = (int)titleArray.count/simpleLineItemCount + (int)(titleArray.count % simpleLineItemCount?1:0);
+        int lineCount = (int)self.titleArray.count/simpleLineItemCount + (int)(self.titleArray.count % simpleLineItemCount?1:0);
         self.normalHeight = 20 + lineCount*itemHeight;
         self.hideHeight = self.normalHeight;
-        self.hideTitleArray = titleArray;
+        self.hideTitleArray = self.titleArray;
         
     }
-    
-    _titleArray = titleArray;
-    
-    
 }
 - (void)setDisabledTitleArray:(NSArray *)disabledTitleArray{
     _disabledTitleArray = disabledTitleArray;
@@ -277,11 +312,10 @@
 
 @interface XQListMenuViewCell : UITableViewCell<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic,retain)  NSIndexPath *indexpath;
+@property (nonatomic, retain)  NSIndexPath *indexpath;
 @property (nonatomic, retain) XQListMenuTitle *titleModal;
 @property (nonatomic, weak) id <XQListMenuViewCellDelegate> delegate;
 @property (nonatomic, weak)  UICollectionView *collectionview;
-@property (nonatomic, assign) XQListMenuType menu_type;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
@@ -307,7 +341,6 @@
     return self;
 }
 - (void)addCollectionview{
-    self.menu_type = menuType;
     
     XQListMenuLayout *flowLayout    = [[XQListMenuLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -318,10 +351,6 @@
     UICollectionView  *collectionview   = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.titleModal.hideHeight) collectionViewLayout:flowLayout];
     
     collectionview.backgroundColor = [UIColor whiteColor];
-    
-    if (self.menu_type == XQListMenuTypeMultiSelect) {
-        collectionview.allowsMultipleSelection = YES;
-    }
     
     collectionview.dataSource = self;
     collectionview.delegate = self;
@@ -343,7 +372,7 @@
     static NSString *ID = @"XQListMenuViewCellCollectionviewCell";
     
     XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    
+    cell.highlightedColor = self.titleModal.itemHighlightedColor;
     if (self.titleModal.showingMore) {
         cell.title =  self.titleModal.titleArray[indexPath.row];
     }else{
@@ -376,7 +405,7 @@
         }
     }else {
         
-        if (self.menu_type == XQListMenuTypeMultiSelect) return;
+        if (self.titleModal.menuType == XQListMenuTypeMultiSelect) return;
         
         if ([self.delegate respondsToSelector:@selector(listMenuViewCellDidClickItenWithTitle:)]) {
             [self.delegate listMenuViewCellDidClickItenWithTitle:cell.title];
@@ -387,14 +416,13 @@
     
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return CGSizeMake(itemWidth, itemHeight);
+    return CGSizeMake(self.titleModal.itemSize.width, self.titleModal.itemSize.height);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    CGSize size = self.titleModal.itemSize;
+    int simpleLineItemCount = [UIScreen mainScreen].bounds.size.width/size.width;
     
-    int simpleLineItemCount = [UIScreen mainScreen].bounds.size.width/itemWidth;
-    
-    CGFloat totalW = simpleLineItemCount * itemWidth;
+    CGFloat totalW = simpleLineItemCount * size.width;
     
     CGFloat margin = (self.collectionview.frame.size.width - totalW)/2;
     
@@ -406,14 +434,15 @@
     self.collectionview.frame = self.bounds;
 }
 - (void)setTitleModal:(XQListMenuTitle *)titleModal{
+    if (_titleModal == titleModal) return;
     _titleModal = titleModal;
-    
+    self.collectionview.allowsMultipleSelection = self.titleModal.menuType == XQListMenuTypeMultiSelect;
     [self.collectionview reloadData];
 }
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     XQListMenuCollectionViewCell *cell = (XQListMenuCollectionViewCell *)[self.collectionview cellForItemAtIndexPath:indexPath];
-    if (self.menu_type == XQListMenuTypeMultiSelect) {
+    if (self.titleModal.menuType == XQListMenuTypeMultiSelect) {
         if (!([cell.title isEqualToString:arrowDownTitle]||[cell.title isEqualToString:arrowUpTitle])) {
             
             [self.titleModal.selectedIndexSet addIndex:indexPath.item];
@@ -424,7 +453,7 @@
 }
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.menu_type == XQListMenuTypeMultiSelect) {
+    if (self.titleModal.menuType == XQListMenuTypeMultiSelect) {
         [self.titleModal.selectedIndexSet removeIndex:indexPath.item];
         
     }
@@ -437,7 +466,7 @@
 @interface XQListMenuController ()<XQListMenuViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *titleModalArray;
-@property (nonatomic, assign) XQListMenuType menu_type;
+
 
 @end
 
@@ -447,7 +476,6 @@
     [super viewDidLoad];
     
     self.tableView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
-    self.menu_type = menuType;
 }
 
 #pragma mark - Table view data source
@@ -469,7 +497,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     XQListMenuTitle *titleModal = (XQListMenuTitle *)self.titleModalArray[indexPath.section];
-    
     BOOL showingMore= titleModal.showingMore;
     if (showingMore) {
         return titleModal.normalHeight;
@@ -478,7 +505,9 @@
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
+    if ([self.delegate respondsToSelector:@selector(headerViewForXQListMenuControllerForSection:)]) {
+        return [self.delegate headerViewForXQListMenuControllerForSection:section];
+    }
     UIButton *headerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     headerBtn.frame = CGRectMake(0, 0, self.view.bounds.size.width, 40);
     [headerBtn setTitle:self.titleArray[section] forState:UIControlStateNormal];
@@ -488,17 +517,39 @@
     [headerBtn setBackgroundColor:[UIColor orangeColor]];
     return headerBtn;
 }
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if ([self.delegate respondsToSelector:@selector(footerViewForXQListMenuControllerForSection:)]) {
+        return [self.delegate footerViewForXQListMenuControllerForSection:section];
+    }
+    return nil;
+}
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if ([self.delegate respondsToSelector:@selector(titleforHeaderForXQListMenuControllerForSection:)]) {
+        return [self.delegate titleforHeaderForXQListMenuControllerForSection:section];
+    }
+    return @" ";
+}
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    if ([self.delegate respondsToSelector:@selector(titleforFooterForXQListMenuControllerForSection:)]) {
+        return [self.delegate titleforFooterForXQListMenuControllerForSection:section];
+    }
     return @" ";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if ([self.delegate respondsToSelector:@selector(heightForHeaderForXQListMenuControllerForSection:)]) {
+        return [self.delegate heightForHeaderForXQListMenuControllerForSection:section];
+    }
     return 40;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if ([self.delegate respondsToSelector:@selector(heightForFooterForXQListMenuControllerForSection:)]) {
+        return [self.delegate heightForFooterForXQListMenuControllerForSection:section];
+    }
+    return 0.0000001;
+}
 - (void)listMenuViewCellDidClickShowMore:(BOOL)showingMore indexpath:(NSIndexPath *)indexpath{
-    
     XQListMenuTitle *titleModal = (XQListMenuTitle *)self.titleModalArray[indexpath.section];
     titleModal.showingMore = showingMore;
-    
     [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationFade];
 }
 - (void)listMenuViewCellDidClickItenWithTitle:(NSString *)title{
@@ -516,10 +567,57 @@
         XQListMenuTitle *titleModal = [[XQListMenuTitle alloc] init];
         titleModal.titleArray = [NSMutableArray arrayWithArray:array];
         titleModal.showingMore = NO;
+        if (!CGSizeEqualToSize(self.itemSize, CGSizeZero)) titleModal.itemSize = self.itemSize;
+        titleModal.beginHideLine = self.beginHideLine;
+        titleModal.hideFunction  = self.hideFunction;
+        titleModal.furlable      = self.furlable;
+        titleModal.menuType      = self.menuType;
+        titleModal.itemHighlightedColor = self.itemHighlightedColor;
         [titleModalArray addObject:titleModal];
         
     }
     self.titleModalArray = titleModalArray;
+}
+- (void)setItemSize:(CGSize)itemSize{
+    if (CGSizeEqualToSize(_itemSize, itemSize)) return;
+    _itemSize = itemSize;
+    for (XQListMenuTitle *titleModal in self.titleModalArray) {
+        titleModal.itemSize = itemSize;
+    }
+}
+- (void)setBeginHideLine:(int)beginHideLine{
+    if (_beginHideLine == beginHideLine) return;
+    _beginHideLine = beginHideLine;
+    for (XQListMenuTitle *titleModal in self.titleModalArray) {
+        titleModal.beginHideLine = beginHideLine;
+    }
+}
+- (void)setHideFunction:(BOOL)hideFunction{
+    if (_hideFunction == hideFunction) return;
+    _hideFunction = hideFunction;
+    for (XQListMenuTitle *titleModal in self.titleModalArray) {
+        titleModal.hideFunction = hideFunction;
+    }
+}
+- (void)setFurlable:(BOOL)furlable{
+    if (_furlable == furlable) return;
+    _furlable = furlable;
+    for (XQListMenuTitle *titleModal in self.titleModalArray) {
+        titleModal.furlable = furlable;
+    }
+}
+- (void)setMenuType:(XQListMenuType)menuType{
+    if (_menuType == menuType) return;
+    _menuType = menuType;
+    for (XQListMenuTitle *titleModal in self.titleModalArray) {
+        titleModal.menuType = menuType;
+    }
+}
+- (void)setItemHighlightedColor:(UIColor *)itemHighlightedColor{
+    _itemHighlightedColor = itemHighlightedColor;
+    for (XQListMenuTitle *titleModal in self.titleModalArray) {
+        titleModal.itemHighlightedColor = itemHighlightedColor;
+    }
 }
 - (void)setDisabledItemTitlesArray:(NSArray *)disabledItemTitlesArray{
     _disabledItemTitlesArray = disabledItemTitlesArray;
@@ -529,7 +627,7 @@
     }
 }
 - (NSDictionary *)getSelectedDict{
-    if (self.menu_type == XQListMenuTypeSimpleSelect) return nil;
+    if (self.menuType == XQListMenuTypeSimpleSelect) return nil;
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
@@ -559,7 +657,7 @@
     return dict;
 }
 - (void)reverseSelectAllItem{
-    if (self.menu_type == XQListMenuTypeSimpleSelect) return;
+    if (self.menuType == XQListMenuTypeSimpleSelect) return;
     BOOL isAllSelect = YES;//全选状态
     
     for (XQListMenuTitle *titleModal in self.titleModalArray) {

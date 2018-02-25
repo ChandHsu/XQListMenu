@@ -38,7 +38,6 @@
 /* Begin PBXFileReference section */
 		187AECDD1C7D602300069368 /* XQListMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuController.h; sourceTree = "<group>"; };
 		187AECDE1C7D602300069368 /* XQListMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQListMenuController.m; sourceTree = "<group>"; };
-		4A74D5911BF468380002DC3B /* XQListMenuConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuConfig.h; sourceTree = "<group>"; };
 		4A74D59F1BF4777F0002DC3B /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 		4ADE10DF1BF1D7ED00A9C7E2 /* 分类菜单选择器.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "分类菜单选择器.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADE10E31BF1D7ED00A9C7E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -84,7 +83,6 @@
 		4A74D58E1BF468100002DC3B /* XQListMenu */ = {
 			isa = PBXGroup;
 			children = (
-				4A74D5911BF468380002DC3B /* XQListMenuConfig.h */,
 				187AECDD1C7D602300069368 /* XQListMenuController.h */,
 				187AECDE1C7D602300069368 /* XQListMenuController.m */,
 				4A74D59F1BF4777F0002DC3B /* images.bundle */,

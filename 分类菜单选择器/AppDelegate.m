@@ -24,6 +24,12 @@
     
     XQListMenuController *menuVc = [[XQListMenuController alloc] init];
     
+    menuVc.hideFunction = true;
+    menuVc.furlable = true;
+    menuVc.beginHideLine = 3;
+    menuVc.menuType = XQListMenuTypeMultiSelect;
+    menuVc.itemHighlightedColor = [UIColor redColor];
+    
     menuVc.titleArray = @[@"☆☆☆☆☆☆ 美食 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 娱乐 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 美容保健 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 酒店 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 电影 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 其他1 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 其他2 ☆☆☆☆☆☆"];
     menuVc.itemTitlesArray = @[
   @[@"火锅",@"自助餐",@"生日蛋糕",@"西餐",@"香锅烤鱼",@"云南菜",@"日韩料理",@"江浙菜",@"咖啡酒吧",@"素菜",@"川湘菜",@"西北菜",@"海鲜",@"蒙菜",@"中式烧烤",@"烤串",@"东南亚菜",@"汤",@"粥",@"炖菜",@"米饭",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13"],
