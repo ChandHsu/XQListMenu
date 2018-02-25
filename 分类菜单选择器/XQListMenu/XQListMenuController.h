@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum{
-    XQListMenuTypeSimpleSelect,
-    XQListMenuTypeMultiSelect
-}XQListMenuType;
-
-typedef void (^ClickBlock)(NSString *showText);
-
 @protocol XQListMenuControllerDelegate <NSObject>
 
 @optional
@@ -28,22 +21,44 @@ typedef void (^ClickBlock)(NSString *showText);
 @end
 
 
+typedef enum{
+    XQListMenuTypeSimpleSelectSection,//组单选
+    XQListMenuTypeSimpleSelectGlobal,//全局单选
+    XQListMenuTypeMultiSelect//多选
+}XQListMenuType;
+
+typedef struct{
+    XQListMenuType menuType;
+    CGSize itemSize;
+    BOOL furlable;//收拢开关
+    BOOL hideFunction;//隐藏开关
+    int  beginHideLine;//开始隐藏的行
+}XQListMenuConfig;
+
+CG_INLINE XQListMenuConfig
+XQListMenuConfigMake(XQListMenuType menuType,CGSize itemSize,BOOL furlable,BOOL hideFunction,int beginHideLine){
+    XQListMenuConfig config;
+    config.menuType = menuType;
+    config.itemSize = itemSize;
+    config.hideFunction = hideFunction;
+    config.furlable = furlable;
+    config.beginHideLine = beginHideLine;
+    return config;
+}
+
+typedef void (^ClickBlock)(NSString *showText);
+
 @interface XQListMenuController : UITableViewController
 
-@property (nonatomic, assign) BOOL hideFunction;
-@property (nonatomic, assign) BOOL furlable;
-@property (nonatomic, assign) int  beginHideLine;
-@property (nonatomic, assign) CGSize itemSize;
-@property (nonatomic, assign) XQListMenuType menuType;
 @property (nonatomic, assign) UITableViewStyle tableViewStyle;
 @property (nonatomic, strong) UIColor *itemHighlightedColor;
+@property (nonatomic, assign) XQListMenuConfig config;
 
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *itemTitlesArray;
 @property (nonatomic, strong) NSArray *disabledItemTitlesArray;
 
 @property (nonatomic, strong) NSArray *selectItemTitlesArray;//预选中
-
 
 @property (nonatomic, copy  ) ClickBlock clickBlock;
 

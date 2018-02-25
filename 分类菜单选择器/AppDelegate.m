@@ -24,12 +24,11 @@
     
     XQListMenuController *menuVc = [[XQListMenuController alloc] init];
     
-    menuVc.hideFunction = true;
-    menuVc.furlable = true;
-    menuVc.beginHideLine = 3;
-    menuVc.menuType = XQListMenuTypeMultiSelect;
-    menuVc.itemHighlightedColor = [UIColor redColor];
+    menuVc.config = XQListMenuConfigMake(XQListMenuTypeMultiSelect, CGSizeZero, true, true, 0);
+    menuVc.itemHighlightedColor = [UIColor cyanColor];
     menuVc.tableViewStyle = UITableViewStyleGrouped;
+    
+    
     
     menuVc.titleArray = @[@"☆☆☆☆☆☆ 美食 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 娱乐 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 美容保健 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 酒店 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 电影 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 其他1 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 其他2 ☆☆☆☆☆☆"];
     menuVc.itemTitlesArray = @[
@@ -42,18 +41,18 @@
   @[@"阿拉丁",@"撒旦",@"魔鬼",@"飞机哥"],
   @[@"阿拉丁",@"撒旦",@"魔鬼",@"飞机哥",@"大煞风景",@"守空房",@"戴假发",@"水帘洞"]
   ];
-//    menuVc.selectItemTitlesArray = @[
-//                                     @[@"生日蛋糕"],
-//                                     @[@"足疗按摩"],
-//                                     @[@"美体"],
-//                                     @[@"豪华酒店"],
-//                                     @[@"情侣电影"],
-//                                     @[@"魔鬼"],
-//                                     @[@"大煞风景"]
-//                                     ];
-//    
+    menuVc.selectItemTitlesArray = @[
+                                     @[@"生日蛋糕"],
+                                     @[@"足疗按摩"],
+                                     @[@"美体"],
+                                     @[@"豪华酒店"],
+                                     @[@"情侣电影"],
+                                     @[@"魔鬼"],
+                                     @[@"大煞风景"]
+                                     ];
+    
 //    menuVc.disabledItemTitlesArray = @[
-//                                       
+//
 //                                       @[@"生日蛋糕"],
 //                                       @[@"KTV"],
 //                                       @[@"美体"],
@@ -61,7 +60,7 @@
 //                                       @[@"情侣电影"],
 //                                       @[@"魔鬼"],
 //                                       @[@"大煞风景"]
-//                                       
+//
 //                                       ];
     menuVc.clickBlock = ^(NSString *title){
         [self showAlert:title];
