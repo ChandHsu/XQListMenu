@@ -40,6 +40,10 @@ typedef void (^ClickBlock)(NSString *showText);
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *itemTitlesArray;
 @property (nonatomic, strong) NSArray *disabledItemTitlesArray;
+
+@property (nonatomic, strong) NSArray *selectItemTitlesArray;//预选中
+
+
 @property (nonatomic, copy  ) ClickBlock clickBlock;
 
 @property (nonatomic, weak  ) id <XQListMenuControllerDelegate> delegate;

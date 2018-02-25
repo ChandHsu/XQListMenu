@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		187AECDF1C7D602300069368 /* XQListMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187AECDE1C7D602300069368 /* XQListMenuController.m */; };
+		4A577150204282E900853E66 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A57714F204282E900853E66 /* Foundation+Log.m */; };
 		4A74D5A01BF4777F0002DC3B /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A74D59F1BF4777F0002DC3B /* images.bundle */; };
 		4ADE10E41BF1D7ED00A9C7E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE10E31BF1D7ED00A9C7E2 /* main.m */; };
 		4ADE10E71BF1D7ED00A9C7E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADE10E61BF1D7ED00A9C7E2 /* AppDelegate.m */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		187AECDD1C7D602300069368 /* XQListMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQListMenuController.h; sourceTree = "<group>"; };
 		187AECDE1C7D602300069368 /* XQListMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQListMenuController.m; sourceTree = "<group>"; };
+		4A57714F204282E900853E66 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		4A74D59F1BF4777F0002DC3B /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 		4ADE10DF1BF1D7ED00A9C7E2 /* 分类菜单选择器.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "分类菜单选择器.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADE10E31BF1D7ED00A9C7E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				4A74D58E1BF468100002DC3B /* XQListMenu */,
 				4ADE10EE1BF1D7ED00A9C7E2 /* Assets.xcassets */,
 				4ADE10F31BF1D7ED00A9C7E2 /* Info.plist */,
+				4A57714F204282E900853E66 /* Foundation+Log.m */,
 				4ADE10E21BF1D7ED00A9C7E2 /* Supporting Files */,
 			);
 			path = "分类菜单选择器";
@@ -286,6 +289,7 @@
 				4ADE10E71BF1D7ED00A9C7E2 /* AppDelegate.m in Sources */,
 				187AECDF1C7D602300069368 /* XQListMenuController.m in Sources */,
 				4ADE10E41BF1D7ED00A9C7E2 /* main.m in Sources */,
+				4A577150204282E900853E66 /* Foundation+Log.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
