@@ -23,8 +23,8 @@
 ```
 * `XQListMenuController`是以`UITableViewController`为主体
 
-###1.单次点击
-####效果图:
+###1.单次点击<br>
+####效果图:<br>
 ![](https://github.com/ChandHsu/XQListMenu/blob/master/1.gif)<br>
 1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeSimpleSelectSection`(组单选)/`XQListMenuTypeSimpleSelectGlobal`(全局单选)<br>
 2.在初始化栏目实现回调的block:
@@ -35,8 +35,8 @@
     };
 
 ```
-###2.多选操作
-####效果图:
+###2.多选操作<br>
+####效果图:<br>
 ![](https://github.com/ChandHsu/XQListMenu/blob/master/2.gif)<br>
 1.配置`XQListMenuConfig`内`menuType`枚举为`XQListMenuTypeMultiSelect`<br>
 2.调用`menuView`的方法:
@@ -49,7 +49,7 @@
 
 ```
 
-###3.配置数据
+###3.配置数据<br>
 数据采取结构体形式
 ```objc
 
