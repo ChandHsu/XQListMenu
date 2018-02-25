@@ -1,6 +1,6 @@
 # XQListMenu
-##分类菜单选择器,支持单次点击回调,多选/反选,获取选中的item标题
-##使用方法
+## 分类菜单选择器,支持单次点击回调,多选/反选,获取选中的item标题
+### 使用方法
 * 导入主头文件：`#import "XQListMenuController.h"`<br>
 * 初始化`XQListMenuController`:
 ```objc
@@ -23,8 +23,8 @@
 ```
 * `XQListMenuController`是以`UITableViewController`为主体
 
-###1.单次点击<br>
-####效果图:<br>
+### 1.单次点击<br>
+#### 效果图:<br>
 ![](https://github.com/ChandHsu/XQListMenu/blob/master/1.gif)<br>
 1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeSimpleSelectSection`(组单选)/`XQListMenuTypeSimpleSelectGlobal`(全局单选)<br>
 2.在初始化栏目实现回调的block:
@@ -35,8 +35,8 @@
     };
 
 ```
-###2.多选操作<br>
-####效果图:<br>
+### 2.多选操作<br>
+#### 效果图:<br>
 ![](https://github.com/ChandHsu/XQListMenu/blob/master/2.gif)<br>
 1.配置`XQListMenuConfig`内`menuType`枚举为`XQListMenuTypeMultiSelect`<br>
 2.调用`menuView`的方法:
@@ -49,7 +49,7 @@
 
 ```
 
-###3.配置数据<br>
+### 3.配置数据<br>
 数据采取结构体形式
 ```objc
 
