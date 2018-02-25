@@ -1,5 +1,5 @@
 # XQListMenu
-###分类菜单选择器,支持单次点击回调,多选/反选,获取选中的item标题
+##分类菜单选择器,支持单次点击回调,多选/反选,获取选中的item标题
 ##使用方法
 * 导入主头文件：`#import "XQListMenuController.h"`<br>
 * 初始化`XQListMenuController`:
