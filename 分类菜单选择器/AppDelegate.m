@@ -29,6 +29,7 @@
     menuVc.beginHideLine = 3;
     menuVc.menuType = XQListMenuTypeMultiSelect;
     menuVc.itemHighlightedColor = [UIColor redColor];
+    menuVc.tableViewStyle = UITableViewStyleGrouped;
     
     menuVc.titleArray = @[@"☆☆☆☆☆☆ 美食 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 娱乐 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 美容保健 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 酒店 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 电影 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 其他1 ☆☆☆☆☆☆",@"☆☆☆☆☆☆ 其他2 ☆☆☆☆☆☆"];
     menuVc.itemTitlesArray = @[

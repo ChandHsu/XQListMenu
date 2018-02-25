@@ -35,6 +35,7 @@ typedef void (^ClickBlock)(NSString *showText);
 @property (nonatomic, assign) int  beginHideLine;
 @property (nonatomic, assign) CGSize itemSize;
 @property (nonatomic, assign) XQListMenuType menuType;
+@property (nonatomic, assign) UITableViewStyle tableViewStyle;
 @property (nonatomic, strong) UIColor *itemHighlightedColor;
 
 @property (nonatomic, strong) NSArray *titleArray;

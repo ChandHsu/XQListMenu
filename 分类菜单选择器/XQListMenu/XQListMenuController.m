@@ -507,6 +507,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView = [[UITableView alloc] initWithFrame:self.tableView.bounds style:self.tableViewStyle];
     self.tableView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
 }
 
