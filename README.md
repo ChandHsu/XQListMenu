@@ -26,7 +26,7 @@
 ###1.单次点击
 ####效果图:
 ![](https://github.com/ChandHsu/XQListMenu/blob/master/1.gif)<br>
-1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeSimpleSelect`<br>
+1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeSimpleSelectSection`(组单选)/`XQListMenuTypeSimpleSelectGlobal`(全局单选)<br>
 2.在初始化栏目实现回调的block:
 ```objc
     
@@ -38,7 +38,7 @@
 ###2.多选操作
 ####效果图:
 ![](https://github.com/ChandHsu/XQListMenu/blob/master/2.gif)<br>
-1.配置`XQListMenuConfig.h`内`menuType`枚举为`XQListMenuTypeMultiSelect`<br>
+1.配置`XQListMenuConfig`内`menuType`枚举为`XQListMenuTypeMultiSelect`<br>
 2.调用`menuView`的方法:
 ```objc
 
@@ -50,25 +50,16 @@
 ```
 
 ###3.配置数据
-如果要进行细节配置,可以进`"XQListMenuConfig.h"`文件内进行配置
+数据采取结构体形式
 ```objc
 
-typedef enum{
-    XQListMenuTypeSimpleSelect,// 单选回调
-    XQListMenuTypeMultiSelect  // 多选回调
-}XQListMenuType;
-
-#define menuType  XQListMenuTypeMultiSelect
-
-#define hideFunction YES // 是否开启隐藏功能
-#define furlable  YES //是否支持收拢,返回NO没有收拢箭头选项(如果 hideFunction 为 NO,此项设置无效)
-
-#define beginHideLine 4 // 开始隐藏的行(只有超过这些行才会开始隐藏),返回 0 自动对半隐藏
-
-#define itemWidth (([UIScreen mainScreen].bounds.size.width-20)/4) // item的宽度
-#define itemHeight 35 // item的高度
-
-#define itemHighlightedColor  [UIColor cyanColor] // item的选中/高亮背景色
+typedef struct{
+    XQListMenuType menuType;
+    CGSize itemSize;
+    BOOL furlable;//是否支持收拢,返回NO没有收拢箭头选项(如果 hideFunction 为 NO,此项设置无效)
+    BOOL hideFunction;//是否开启隐藏功能
+    int  beginHideLine;// 开始隐藏的行(只有超过这些行才会开始隐藏),返回 0 自动对半隐藏
+}XQListMenuConfig;
 
 ```
 
